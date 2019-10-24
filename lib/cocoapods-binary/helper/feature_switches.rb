@@ -29,15 +29,13 @@ module Pod
 
                 # patched content
                 should_prebuild = Pod::Podfile::DSL.prebuild_all
-                local = false
                 
                 options = args.last
                 if options.is_a?(Hash) and options[Pod::Prebuild.keyword] != nil
                     should_prebuild = options[Pod::Prebuild.keyword]
-                    local = (options[:path] != nil)
                 end
                 
-                if should_prebuild and (not local)
+                if should_prebuild
                     old_method.bind(self).(name, *args)
                 end
             end
